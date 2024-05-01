@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_first"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/kwizz_logo"
+        android:id="@+id/imgLogin"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        android:background="@drawable/custom_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/lightGrey"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/txtregistertitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:layout_gravity="center_horizontal"
+                android:textSize="36dp"
+                android:textColor="@color/indigo"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:drawableLeft="@drawable/black_person_24"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_card"
+                android:padding="12dp"
+                android:drawableTint="@color/indigo"
+                android:hint=" Name"
+                android:textColor="@color/black"
+                android:textColorHint="@color/darkGrey"/>
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:drawableLeft="@android:drawable/ic_dialog_email"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_card"
+                android:padding="8dp"
+                android:drawableTint="@color/indigo"
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress"
+                android:hint=" Email"
+                android:textColorHint="@color/darkGrey"/>
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:drawableLeft="@android:drawable/ic_lock_lock"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_card"
+                android:padding="8dp"
+                android:drawableTint="@color/indigo"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:textColorHint="@color/darkGrey"/>
+
+            <EditText
+                android:id="@+id/txtConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:drawableLeft="@android:drawable/ic_lock_lock"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_card"
+                android:padding="8dp"
+                android:drawableTint="@color/indigo"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                android:hint="Confirm password"
+                android:textColorHint="@color/darkGrey"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnregister"
+                android:backgroundTint="@color/indigo"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:text="Register"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/txtToLogin"
+                android:text="Already have an account ? Login"
+                android:textColor="@color/darkGrey"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
