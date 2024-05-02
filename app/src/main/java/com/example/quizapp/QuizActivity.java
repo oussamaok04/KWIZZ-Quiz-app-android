@@ -136,6 +136,7 @@ public class QuizActivity extends AppCompatActivity {
                     intent.putExtra("category", cat);
                     intent.putExtra("difficulty", diff);
                     startActivity(intent);
+                    finish();
                 }
 
             }

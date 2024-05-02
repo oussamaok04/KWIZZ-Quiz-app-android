@@ -76,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(RegisterActivity.this, ParamActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Something is Wrong ! Check the LogCat" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }

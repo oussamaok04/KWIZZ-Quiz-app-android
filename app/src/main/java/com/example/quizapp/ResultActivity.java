@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +24,7 @@ public class ResultActivity extends AppCompatActivity {
     TextView txtScore;
     Button btnReset, btnLogout;
     Category categories;
+    FirebaseAuth mauth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class ResultActivity extends AppCompatActivity {
         String cat = intent.getStringExtra("category");
         String diff = intent.getStringExtra("difficulty");
 
+        mauth = FirebaseAuth.getInstance();
         txtScore = findViewById(R.id.txtScore);
         btnLogout = findViewById(R.id.btnLogout);
         btnReset = findViewById(R.id.btnReset);
@@ -44,8 +48,10 @@ public class ResultActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                logout();
                 Intent intent = new Intent(ResultActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -89,6 +95,7 @@ public class ResultActivity extends AppCompatActivity {
                             intent.putExtra("category", cat);
                             intent.putExtra("difficulty", diff);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(ResultActivity.this, "Failed to get data from API", Toast.LENGTH_SHORT).show();
                         }
@@ -99,5 +106,9 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    void logout(){
+        mauth.signOut();
     }
 }

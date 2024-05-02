@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, ParamActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, ParamActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Something is Wrong ! Check the LogCat", Toast.LENGTH_SHORT).show();
                         }

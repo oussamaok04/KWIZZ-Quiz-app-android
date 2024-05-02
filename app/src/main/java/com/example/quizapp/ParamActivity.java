@@ -116,6 +116,7 @@ public class ParamActivity extends AppCompatActivity {
                             intent.putExtra("category", cat);
                             intent.putExtra("difficulty", diff);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(ParamActivity.this, "Failed to get data from API", Toast.LENGTH_SHORT).show();
                         }
