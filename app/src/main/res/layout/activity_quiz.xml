@@ -50,10 +50,10 @@
                 android:textSize="18dp"
                 android:padding="10dp"/>
 
-<!--            <SeekBar-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/timer" />-->
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/timer" />
 
         </LinearLayout>
 

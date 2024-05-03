@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,11 +34,14 @@ public class QuizActivity extends AppCompatActivity {
     TextView txtQuestion;
     RadioGroup rdAnswers;
     Button btnnext;
+    SeekBar seekBar;
     String rightAnswer = "", result = "", numberOfQuestions, cat, diff;
-    int rightID, score = 0, question = 1, rightIndex;
+    int rightID, score = 0, question = 1, rightIndex, timeLeft = 20;
     RadioButton ans1, ans2, ans3, ans4;
     List<RadioButton> rds = new ArrayList<>();
     Map<String, List<String>> questionsResponses = new HashMap<>();
+    CountDownTimer timer;
+    boolean quizFinished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,13 @@ public class QuizActivity extends AppCompatActivity {
         ans2 = findViewById(R.id.rdAnswer2);
         ans3 = findViewById(R.id.rdAnswer3);
         ans4 = findViewById(R.id.rdAnswer4);
+        seekBar = findViewById(R.id.timer);
+
+        seekBar.setMax(20);
+        seekBar.setProgress(20);
 
         Intent paramIntent = getIntent();
+        //result = paramIntent.getStringExtra("JsonScrap");
         result = paramIntent.getStringExtra("JsonScrap");
         numberOfQuestions = paramIntent.getStringExtra("numberQuestions");
         cat = paramIntent.getStringExtra("category");
@@ -63,7 +73,7 @@ public class QuizActivity extends AppCompatActivity {
             jsonArr = new JSONArray(new JSONObject(result.toString()).getString("results"));
             for (int i = 0; i < jsonArr.length(); i++) {
                 JSONObject jsonObj = jsonArr.getJSONObject(i);
-                String question = jsonObj.getString("question");
+                String question = StringEscapeUtils.unescapeHtml4(jsonObj.getString("question"));
                 List<String> answers = jsonArrayToList(new JSONArray(jsonObj.getString("incorrect_answers")));
                 answers.add(jsonObj.getString("correct_answer"));
                 //answers.sort(String::compareTo);
@@ -92,7 +102,7 @@ public class QuizActivity extends AppCompatActivity {
         for (int i = 0; i < 4; i++) {
             if (i == rightIndex){
                 rds.get(i).setText(rightAnswer);
-                rds.get(i).setBackgroundResource(R.drawable.right_card);
+                //rds.get(i).setBackgroundResource(R.drawable.right_card);
                 rightID = rds.get(i).getId();
             } else {
                 rds.get(i).setText(questionsResponses.get(txtQuestion.getText().toString()).get(i));
@@ -129,7 +139,7 @@ public class QuizActivity extends AppCompatActivity {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //rdAnswers.getChildAt(rightIndex).setBackgroundResource(R.drawable.right_card);
+                rdAnswers.getChildAt(rightIndex).setBackgroundResource(R.drawable.right_card);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -147,6 +157,7 @@ public class QuizActivity extends AppCompatActivity {
                             displayNextQuestion();
                             rdAnswers.clearCheck();
                         } else {
+                            quizFinished = true;
                             //countDown.cancel();
                             Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
                             intent.putExtra("score", score);
@@ -162,6 +173,29 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+         timer = new CountDownTimer(20000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeft--;
+                seekBar.setProgress(timeLeft);
+            }
+
+            @Override
+            public void onFinish() {
+                if (quizFinished == true){
+
+                } else {
+                    Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
+                    intent.putExtra("score", score);
+                    intent.putExtra("numberQuestions", numberOfQuestions);
+                    intent.putExtra("category", cat);
+                    intent.putExtra("difficulty", diff);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
+        timer.start();
     }
 
 //    void startTimer(){
