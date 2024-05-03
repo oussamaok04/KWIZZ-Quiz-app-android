@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class QuizActivity extends AppCompatActivity {
     RadioGroup rdAnswers;
     Button btnnext;
     String rightAnswer = "", result = "", numberOfQuestions, cat, diff;
-    int rightID, score = 0, question = 1;
+    int rightID, score = 0, question = 1, rightIndex;
     RadioButton ans1, ans2, ans3, ans4;
     List<RadioButton> rds = new ArrayList<>();
     Map<String, List<String>> questionsResponses = new HashMap<>();
@@ -72,26 +73,34 @@ public class QuizActivity extends AppCompatActivity {
         }
 
 
+
         txtQuestion.setText(questionsResponses.keySet().toArray(new String[questionsResponses.size()])[0]);
-        ans1.setText(questionsResponses.get(txtQuestion.getText().toString()).get(0));
-        ans2.setText(questionsResponses.get(txtQuestion.getText().toString()).get(1));
-        ans3.setText(questionsResponses.get(txtQuestion.getText().toString()).get(2));
-        ans4.setText(questionsResponses.get(txtQuestion.getText().toString()).get(3));
-        rightAnswer = questionsResponses.get(txtQuestion.getText().toString()).get(3);
-
-
+//        ans1.setText(questionsResponses.get(txtQuestion.getText().toString()).get(0));
+//        ans2.setText(questionsResponses.get(txtQuestion.getText().toString()).get(1));
+//        ans3.setText(questionsResponses.get(txtQuestion.getText().toString()).get(2));
+//        ans4.setText(questionsResponses.get(txtQuestion.getText().toString()).get(3));
+//        rightAnswer = questionsResponses.get(txtQuestion.getText().toString()).get(3);
 
         rds.add(ans1);
         rds.add(ans2);
         rds.add(ans3);
         rds.add(ans4);
 
+        rightIndex = new Random().nextInt(4);
+        rightAnswer = questionsResponses.get(txtQuestion.getText().toString()).get(3);
+        for (int i = 0; i < 4; i++) {
+            if (i == rightIndex){
+                rds.get(i).setText(rightAnswer);
+            } else {
+                rds.get(i).setText(questionsResponses.get(txtQuestion.getText().toString()).get(i));
+            }
+        }
+
         for (RadioButton rd: rds) {
             if (rd.getText().toString().equals(rightAnswer)) {
                 rightID = rd.getId();
             }
         }
-
 
         rdAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

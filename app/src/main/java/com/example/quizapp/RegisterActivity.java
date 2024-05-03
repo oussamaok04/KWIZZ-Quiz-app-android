@@ -54,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (email.getText().toString().equals("") || name.getText().toString().equals("") || pass.getText().toString().equals("") || passConfirmation.getText().toString().equals("")){
-                    Toast.makeText(RegisterActivity.this, "Un champ est vide ou invalide", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "A Field is Empty or Not Valid ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (!pass.getText().toString().equals(passConfirmation.getText().toString())){
                         Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();

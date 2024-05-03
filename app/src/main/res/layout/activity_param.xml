@@ -124,8 +124,19 @@
                 android:textColor="@color/white"
                 android:backgroundTint="@color/indigo"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="17dp"
                 android:padding="15dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/logoutbtn"
+                android:backgroundTint="@color/indigo"
+                android:text="Log Out"
+                android:textColor="@color/white"
+                android:padding="15dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="5dp"/>
 
         </LinearLayout>
 
