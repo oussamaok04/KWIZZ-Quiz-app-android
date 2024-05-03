@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -91,16 +92,20 @@ public class QuizActivity extends AppCompatActivity {
         for (int i = 0; i < 4; i++) {
             if (i == rightIndex){
                 rds.get(i).setText(rightAnswer);
+                rds.get(i).setBackgroundResource(R.drawable.right_card);
+                rightID = rds.get(i).getId();
             } else {
                 rds.get(i).setText(questionsResponses.get(txtQuestion.getText().toString()).get(i));
             }
         }
+        ans4.setText(questionsResponses.get(txtQuestion.getText().toString()).get(rightIndex));
+        Log.d("ANS", rightAnswer);
 
-        for (RadioButton rd: rds) {
-            if (rd.getText().toString().equals(rightAnswer)) {
-                rightID = rd.getId();
-            }
-        }
+//        for (RadioButton rd: rds) {
+//            if (rd.getText().toString().equals(rightAnswer)) {
+//                rightID = rd.getId();
+//            }
+//        }
 
         rdAnswers.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -124,29 +129,35 @@ public class QuizActivity extends AppCompatActivity {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //rdAnswers.getChildAt(rightIndex).setBackgroundResource(R.drawable.right_card);
 
-                if (rdAnswers.getCheckedRadioButtonId() == rightID){
-                    score += 1;
-                }
-                if (question < questionsResponses.size()){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (rdAnswers.getCheckedRadioButtonId() == rightID){
+                            score += 1;
+                        }
+                        if (question < questionsResponses.size()){
 //                    if (rdAnswers.getCheckedRadioButtonId() == rightID){
 //                        score++;
 //                    }
-                    if (question == questionsResponses.size() - 1){
-                        btnnext.setText("Show Result");
+                            if (question == questionsResponses.size() - 1){
+                                btnnext.setText("Show Result");
+                            }
+                            displayNextQuestion();
+                            rdAnswers.clearCheck();
+                        } else {
+                            //countDown.cancel();
+                            Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
+                            intent.putExtra("score", score);
+                            intent.putExtra("numberQuestions", numberOfQuestions);
+                            intent.putExtra("category", cat);
+                            intent.putExtra("difficulty", diff);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
-                    displayNextQuestion();
-                    rdAnswers.clearCheck();
-                } else {
-                    //countDown.cancel();
-                    Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
-                    intent.putExtra("score", score);
-                    intent.putExtra("numberQuestions", numberOfQuestions);
-                    intent.putExtra("category", cat);
-                    intent.putExtra("difficulty", diff);
-                    startActivity(intent);
-                    finish();
-                }
+                }, 1500);
 
             }
         });
@@ -179,12 +190,24 @@ public class QuizActivity extends AppCompatActivity {
 
         question++;
         txtQuestion.setText(questionsResponses.keySet().toArray(new String[questionsResponses.size()])[question - 1]);
+        rightIndex = new Random().nextInt(4);
         rightAnswer = questionsResponses.get(txtQuestion.getText().toString()).get(3);
+        for (int i = 0; i < 4; i++) {
+            if (i == rightIndex){
+                rds.get(i).setText(rightAnswer);
+                //rds.get(i).setBackgroundResource(R.drawable.right_card);
+                rightID = rds.get(i).getId();
+            } else {
+                rds.get(i).setText(questionsResponses.get(txtQuestion.getText().toString()).get(i));
+            }
+        }
+        ans4.setText(questionsResponses.get(txtQuestion.getText().toString()).get(rightIndex));
+        Log.d("ANS", rightAnswer);
         //questionsResponses.get(txtQuestion).sort(String::compareTo);
-        ans1.setText(questionsResponses.get(txtQuestion.getText().toString()).get(0));
-        ans2.setText(questionsResponses.get(txtQuestion.getText().toString()).get(1));
-        ans3.setText(questionsResponses.get(txtQuestion.getText().toString()).get(2));
-        ans4.setText(questionsResponses.get(txtQuestion.getText().toString()).get(3));
+//        ans1.setText(questionsResponses.get(txtQuestion.getText().toString()).get(0));
+//        ans2.setText(questionsResponses.get(txtQuestion.getText().toString()).get(1));
+//        ans3.setText(questionsResponses.get(txtQuestion.getText().toString()).get(2));
+//        ans4.setText(questionsResponses.get(txtQuestion.getText().toString()).get(3));
 
         //startTimer();
     }
