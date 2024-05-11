@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,9 +38,10 @@ import java.util.concurrent.Executors;
 public class ParamActivity extends AppCompatActivity {
 
     Spinner spCategory, spDifficulty, spQstNumber;
-    Button start;
+    Button start, logOut;
     ArrayAdapter<String> catAdapter, diffAdapter, qNumAdapter;
     Category categories;
+    FirebaseAuth mAuth;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,10 +49,13 @@ public class ParamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_param);
 
+        mAuth = FirebaseAuth.getInstance();
+
         spCategory = findViewById(R.id.spCat);
         spDifficulty = findViewById(R.id.spDiff);
         spQstNumber = findViewById(R.id.spQNbr);
         start = findViewById(R.id.btnStart);
+        logOut = findViewById(R.id.logoutbtn);
         categories = new Category();
 
         ArrayList<String> categoryList = new ArrayList<>(categories.getCategoryList());
@@ -125,6 +131,13 @@ public class ParamActivity extends AppCompatActivity {
             }
         });
 
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goAway();
+            }
+        });
+
 //        start.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -182,6 +195,13 @@ public class ParamActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+    }
+
+    void goAway(){
+        mAuth.signOut();
+        Intent intent = new Intent(ParamActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -48,6 +48,8 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        Log.d("State", "Quiz Activity");
+
         txtQuestion = findViewById(R.id.txtQuestion);
         rdAnswers = findViewById(R.id.rdGrp);
         btnnext = findViewById(R.id.btnNext);
@@ -250,7 +252,6 @@ public class QuizActivity extends AppCompatActivity {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                // Convert each element to String and add it to the list
                 list.add(jsonArray.getString(i));
             } catch (JSONException e) {
                 e.printStackTrace();

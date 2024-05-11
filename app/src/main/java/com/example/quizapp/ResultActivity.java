@@ -31,6 +31,8 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        Log.d("State", "Result Activity");
+
         Intent intent = getIntent();
         int score = intent.getIntExtra("score", 0);
         String numberOfQuestions = intent.getStringExtra("numberQuestions");

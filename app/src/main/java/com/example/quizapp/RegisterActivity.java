@@ -31,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        Log.d("State", "Register Activity");
+
         mAuth = FirebaseAuth.getInstance();
 
         email = findViewById(R.id.txtEmail);
